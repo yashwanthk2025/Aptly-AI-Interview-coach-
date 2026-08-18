@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Aptly - AI Interview Coach</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SCREEN 1: HOME -->
+  <div id="screen-home">
+    <h1>Aptly</h1>
+    <p>AI Interview Coach</p>
+
+    <textarea id="jd-input" placeholder="Paste the job description here..."></textarea>
+
+    <button onclick="startInterview()">Start Interview</button>
+
+    <p style="font-size:12px; color:#666;">
+        Your camera and microphone are used only for interview analysis.
+        Recordings are deleted from our server immediately after processing.
+    </p>
+  </div>
+
+  <!-- SCREEN 2: INTERVIEW -->
+  <div id="screen-interview" class="hidden">
+    <h2>AI Interviewer</h2>
+    <div id="question">Loading question...</div>
+    <video id="webcam" autoplay muted></video><br>
+    <button id="record-btn" onclick="toggleRecording()">● Start Answer</button>
+    <button onclick="finishInterview()">Finish Interview</button>
+  </div>
+
+  <!-- SCREEN 3: REPORT -->
+  <div id="screen-report" class="hidden">
+    <h2>Interview Report</h2>
+    <pre id="report-output"></pre>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

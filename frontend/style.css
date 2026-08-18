@@ -1,0 +1,871 @@
+/* ==========================================================================
+   Aptly — AI Interview Coach
+   style.css
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #0a0d13;
+  --bg-radial: radial-gradient(circle at 50% -10%, #141a26 0%, #0a0d13 55%);
+  --surface: #131824;
+  --surface-2: #1a2130;
+  --surface-3: #212a3c;
+  --border: #262f42;
+  --border-strong: #37455e;
+
+  --text-primary: #eef1f6;
+  --text-secondary: #9aa5b8;
+  --text-tertiary: #626d82;
+
+  --accent: #5b8def;
+  --accent-strong: #4472dd;
+  --accent-soft: rgba(91, 141, 239, 0.14);
+  --accent-glow: rgba(91, 141, 239, 0.35);
+
+  --good: #2dd4bf;
+  --good-bg: rgba(45, 212, 191, 0.12);
+  --good-border: rgba(45, 212, 191, 0.35);
+  --warn: #f5a524;
+  --warn-bg: rgba(245, 165, 36, 0.12);
+  --warn-border: rgba(245, 165, 36, 0.35);
+  --bad: #ff5d6c;
+  --bad-bg: rgba(255, 93, 108, 0.12);
+  --bad-border: rgba(255, 93, 108, 0.35);
+  --rec: #ff4d5e;
+
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Reset ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-radial);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.hidden { display: none !important; }
+
+button { font-family: inherit; border: none; cursor: pointer; }
+textarea { font-family: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   SCREEN 1 — HOME
+   ========================================================================== */
+
+#screen-home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  animation: screenIn var(--dur) var(--ease);
+}
+
+#screen-home h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 6vw, 4rem);
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #ffffff 0%, #aeb9cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  animation: fadeSlideIn var(--dur) var(--ease) both;
+}
+
+#screen-home > p:first-of-type {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 500;
+  animation: fadeSlideIn var(--dur) var(--ease) 60ms both;
+}
+
+#screen-home > p:first-of-type::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 8px;
+  vertical-align: middle;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+#jd-input {
+  width: min(560px, 100%);
+  height: 160px;
+  margin-top: 36px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  box-shadow: var(--shadow);
+  animation: fadeSlideIn var(--dur) var(--ease) 120ms both;
+}
+
+#jd-input::placeholder { color: var(--text-tertiary); }
+#jd-input:hover { border-color: var(--border-strong); }
+#jd-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface-2);
+  box-shadow: 0 0 0 4px var(--accent-soft), var(--shadow);
+}
+
+#screen-home > button {
+  width: min(560px, 100%);
+  margin-top: 16px;
+  padding: 15px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-radius: var(--radius-sm);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  box-shadow: 0 4px 16px rgba(91, 141, 239, 0.35);
+  letter-spacing: 0.01em;
+  animation: fadeSlideIn var(--dur) var(--ease) 180ms both;
+}
+
+#screen-home > button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(91, 141, 239, 0.45);
+}
+#screen-home > button:active:not(:disabled) { transform: translateY(0) scale(0.98); }
+#screen-home > button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+#screen-home > p[style] {
+  width: min(560px, 100%);
+  margin-top: 18px !important;
+  padding: 12px 16px;
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary) !important;
+  line-height: 1.5;
+  text-transform: none;
+  animation: fadeSlideIn var(--dur) var(--ease) 240ms both;
+}
+#screen-home > p[style]::before { content: none; }
+
+.aptly-error {
+  width: min(560px, 100%);
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--bad-bg);
+  border: 1px solid var(--bad-border);
+  color: #ffb3ba;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  animation: fadeSlideIn var(--dur) var(--ease);
+}
+
+/* ==========================================================================
+   SCREEN 2 — INTERVIEW
+   ========================================================================== */
+
+#screen-interview {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+  animation: screenIn var(--dur) var(--ease);
+}
+
+#screen-interview h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.aptly-meta-row {
+  width: min(600px, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  margin-bottom: 4px;
+}
+
+.aptly-counter {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+.aptly-status {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aptly-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  transition: background var(--dur-fast) var(--ease);
+}
+.aptly-status-dot.is-active {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+#question {
+  position: relative;
+  width: min(600px, 100%);
+  margin-top: 14px;
+  padding: 32px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.45;
+  min-height: 60px;
+  box-shadow: var(--shadow);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+#question::before {
+  content: 'AI INTERVIEWER';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  background: var(--surface);
+  padding: 0 8px;
+}
+
+#question.is-transitioning { opacity: 0; transform: translateY(6px); }
+
+#question.is-listening {
+  border-color: rgba(91, 141, 239, 0.5);
+  box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow), 0 0 32px rgba(91, 141, 239, 0.18);
+  animation: listeningGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes listeningGlow {
+  0%, 100% { box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow), 0 0 24px rgba(91, 141, 239, 0.14); }
+  50%      { box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow), 0 0 44px rgba(91, 141, 239, 0.32); }
+}
+
+/* Analyzing indicator shown near the question while /submit_answer is in flight */
+.aptly-analyzing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 16px;
+  width: min(600px, 100%);
+  background: var(--accent-soft);
+  border: 1px solid rgba(91, 141, 239, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--accent);
+  animation: fadeSlideIn var(--dur-fast) var(--ease);
+}
+
+.aptly-analyzing .aptly-spinner-sm {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(91, 141, 239, 0.3);
+  border-top-color: var(--accent);
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.aptly-video-wrap {
+  position: relative;
+  width: min(440px, 100%);
+  margin-top: 26px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
+}
+
+#webcam { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+
+.aptly-rec {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(10, 13, 19, 0.7);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 77, 94, 0.4);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #ffd3d7;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  pointer-events: none;
+}
+.aptly-rec.is-visible { opacity: 1; transform: translateY(0); }
+
+.aptly-rec-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rec);
+  animation: recPulse 1.3s ease-in-out infinite;
+}
+
+@keyframes recPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.85); }
+}
+
+#record-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 14px 26px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(91, 141, 239, 0.32);
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  margin-right: 10px;
+}
+#record-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(91, 141, 239, 0.4); }
+#record-btn:active:not(:disabled) { transform: translateY(0) scale(0.97); }
+#record-btn.is-recording {
+  background: linear-gradient(135deg, var(--rec) 0%, #d43a48 100%);
+  box-shadow: 0 4px 16px rgba(255, 77, 94, 0.35);
+}
+#record-btn.is-recording:hover:not(:disabled) { box-shadow: 0 8px 22px rgba(255, 77, 94, 0.45); }
+#record-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+#screen-interview > button:not(#record-btn) {
+  margin-top: 22px;
+  padding: 14px 22px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: all var(--dur-fast) var(--ease);
+}
+#screen-interview > button:not(#record-btn):hover:not(:disabled) {
+  color: #ffb3ba;
+  border-color: var(--bad-border);
+  background: var(--bad-bg);
+}
+#screen-interview > button:not(#record-btn):disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ==========================================================================
+   SCREEN 3 — REPORT
+   ========================================================================== */
+
+#screen-report {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px 60px;
+  animation: screenIn var(--dur) var(--ease);
+}
+
+#screen-report h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  margin-bottom: 26px;
+}
+
+.aptly-report-loading {
+  width: min(560px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 60px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  animation: fadeSlideIn var(--dur) var(--ease);
+}
+
+.aptly-spinner {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+
+.aptly-loading-text { font-size: 0.9rem; color: var(--text-secondary); text-align: center; min-height: 1.3em; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Report dashboard ---------- */
+
+#report-output {
+  width: min(760px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.aptly-section-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+}
+
+/* Hero overall score */
+.aptly-hero-score {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 28px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  animation: fadeSlideIn var(--dur) var(--ease) both;
+}
+
+.aptly-hero-ring {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: conic-gradient(var(--ring-color, var(--accent)) calc(var(--pct, 0) * 1%), var(--surface-3) 0);
+  transition: background 1.1s var(--ease);
+}
+
+.aptly-hero-ring::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.aptly-hero-ring-value {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.aptly-hero-text .aptly-hero-title {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.aptly-hero-text .aptly-hero-sub {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
+
+/* Metric grid */
+.aptly-score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.aptly-score-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  text-align: center;
+  animation: fadeSlideIn var(--dur) var(--ease) both;
+}
+
+.aptly-score-value {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.aptly-score-label {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.aptly-score-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.score-good { color: var(--good); }
+.score-good.aptly-hero-ring { --ring-color: var(--good); }
+.score-good .aptly-score-badge { background: var(--good-bg); color: var(--good); }
+
+.score-average { color: var(--warn); }
+.score-average.aptly-hero-ring { --ring-color: var(--warn); }
+.score-average .aptly-score-badge { background: var(--warn-bg); color: var(--warn); }
+
+.score-poor { color: var(--bad); }
+.score-poor.aptly-hero-ring { --ring-color: var(--bad); }
+.score-poor .aptly-score-badge { background: var(--bad-bg); color: var(--bad); }
+
+/* Top problems + drills */
+.aptly-problem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.aptly-problem-card {
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--warn);
+  border-radius: var(--radius-sm);
+
+  /* Fix text overflowing outside the card */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  animation: fadeSlideIn var(--dur) var(--ease) both;
+}
+
+.aptly-problem-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  /* Important: allows long text to wrap */
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.aptly-problem-title::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--warn-bg);
+  color: var(--warn);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.aptly-drill {
+  margin-top: 8px;
+  padding-left: 26px;
+
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+
+  /* Prevent long text from escaping the card */
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.aptly-drill::before {
+  content: 'Drill — ';
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Question-by-question breakdown */
+.aptly-qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.aptly-qa-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  animation: fadeSlideIn var(--dur) var(--ease) both;
+}
+
+.aptly-qa-question {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.aptly-qa-answer {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.aptly-qa-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.aptly-chip {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+/* STAR indicators */
+.aptly-star-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.aptly-star-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-tertiary);
+  background: var(--surface-2);
+  animation: starIn var(--dur) var(--ease) both;
+}
+
+.aptly-star-badge.is-complete {
+  color: var(--good);
+  background: var(--good-bg);
+  border-color: var(--good-border);
+}
+
+.aptly-star-badge.is-missing {
+  color: var(--bad);
+  background: var(--bad-bg);
+  border-color: var(--bad-border);
+}
+
+@keyframes starIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.aptly-feedback-line {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+}
+
+/* Raw fallback (kept functional, used only if a shape can't be parsed) */
+.aptly-raw {
+  width: 100%;
+  max-height: 50vh;
+  overflow: auto;
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   Shared animations
+   ========================================================================== */
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .aptly-video-wrap { width: 100%; max-width: 380px; }
+  .aptly-hero-score { flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  #screen-home, #screen-interview, #screen-report { padding-left: 16px; padding-right: 16px; }
+  #screen-home h1 { font-size: 2.4rem; }
+  #jd-input { height: 140px; padding: 14px 16px; }
+
+  #screen-home > button,
+  #record-btn,
+  #screen-interview > button:not(#record-btn) {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+  #record-btn { margin-bottom: 10px; }
+
+  #question { padding: 22px 18px; font-size: 1.05rem; }
+
+  .aptly-score-grid { grid-template-columns: repeat(2, 1fr); }
+  .aptly-qa-card { padding: 16px 18px; }
+  .aptly-raw { padding: 16px; font-size: 0.74rem; }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #question.is-listening { animation: none; box-shadow: var(--shadow), 0 0 0 1px var(--accent-glow); }
+  .aptly-rec-dot { animation: none; }
+  #record-btn:hover:not(:disabled),
+  #screen-home > button:hover:not(:disabled) { transform: none; }
+  .aptly-hero-ring { transition: none; }
+}
+/* =========================================================
+   GLOBAL REPORT TEXT OVERFLOW FIX
+   ========================================================= */
+
+/* Top Problems */
+.aptly-problem-card,
+.aptly-problem-title,
+.aptly-drill,
+
+/* Question-by-Question */
+.aptly-qa-card,
+.aptly-qa-question,
+.aptly-qa-answer,
+.aptly-feedback-line,
+
+/* Metrics and STAR */
+.aptly-qa-metrics,
+.aptly-chip,
+.aptly-star-row,
+.aptly-star-badge {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
